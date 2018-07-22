@@ -1,0 +1,14 @@
+box: shaperid/cypress-python
+
+setup:
+  steps:
+    - script:
+      echo Testing the WERCKER_CACHE_DIR environment variable
+      echo $WERCKER_CACHE_DIR
+
+test:
+  steps:
+    - script:
+      echo Testing the WERCKER_CACHE_DIR environment variable
+      echo $WERCKER_CACHE_DIR
+
