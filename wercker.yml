@@ -3,16 +3,15 @@ box: shaperid/cypress-python
 setup:
   steps:
     - script:
-	      name: A
-        code: |
-          echo Testing the WERCKER_CACHE_DIR environment variable
-          echo $WERCKER_CACHE_DIR
+      name: Test env variable in setup pipeline
+      code: |
+        echo "Testing WERCKER_CACHE_DIR location"
+        echo $WERCKER_CACHE_DIR
 
 test:
   steps:
-    - script:
-	      name: B
-        code: |
-          echo Testing the WERCKER_CACHE_DIR environment variable
-          echo $WERCKER_CACHE_DIR
-
+    -script:
+      name: Test env variable in test pipeline
+      code: |
+        echo "Testing WERCKER_CACHE_DIR location"
+        echo $WERCKER_CACHE_DIR
