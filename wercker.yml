@@ -1,5 +1,11 @@
 box: shaperid/cypress-python
 
+services:
+  - id: postgres
+    env:
+      POSTGRES_PASSWORD: django
+      POSTGRES_USER: django  # optional
+
 setup:
   steps:
     - script:
@@ -8,7 +14,11 @@ setup:
         echo "Testing WERCKER_CACHE_DIR location"
         echo $WERCKER_CACHE_DIR
         echo "This is a test" > $WERCKER_CACHE_DIR/myfile.txt
-
+        echo "copying big file into the cache"
+        cp -r large-folder $WERCKER_CACHE_DIR/large-folder
+        ls -lah $WERCKER_CACHE_DIR
+        echo "Getting the size of the cache folder"
+        du -sh $WERCKER_CACHE_DIR
 tests:
   steps:
     - script:
@@ -20,4 +30,10 @@ tests:
           cat $WERCKER_CACHE_DIR/myfile.txt
         else
           echo "File $WERCKER_CACHE_DIR/myfile.txt not found!"
-        fi       
+        fi 
+        if [ -f "$WERCKER_CACHE_DIR/large-folder" ]; then
+        echo "File $WERCKER_CACHE_DIR/large-folder found!"
+        else
+          echo "File $WERCKER_CACHE_DIR/large-folder NOT found!"
+        fi 
+        ls -la $WERCKER_CACHE_DIR      
